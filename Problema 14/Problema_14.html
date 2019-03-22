@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 14</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 14</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Ingrese el año a verificar:</label>
+                        <input id="anio_ingresado" type="number" min="0" step="1" required>
+                        <br>
+                        <br>                        
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="verificar_bisiesto()" type="submit" name="action">Verificar Año</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="bisiesto"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('bisiesto').style.visibility = 'hidden';
+				document.getElementById('bisiesto').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('bisiesto').style.visibility = 'visible';
+				document.getElementById('bisiesto').style.display = 'block';
+			}
+
+			function mostrar_bisiesto(verificacion)
+			{
+				document.getElementById('bisiesto').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Resultado </th>' +
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + verificacion + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+		    function verificar_bisiesto()
+		    {
+		    	var anio_ingresado = document.getElementById('anio_ingresado').value;
+
+		    	if(anio_ingresado && anio_ingresado > 0)
+		    	{
+		    		if ((anio_ingresado % 4 == 0) && ((anio_ingresado % 100 != 0) || (anio_ingresado % 400 == 0)))
+	    			{
+	    				mostrar_bisiesto('El número es bisiesto');
+	    			}
+	    			else
+	    			{
+	    				mostrar_bisiesto('El número no es bisiesto');
+	    			}
+		    		mostrar_resultado();
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		</script>
+	</body>
+</html>

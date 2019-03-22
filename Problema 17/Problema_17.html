@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 17</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 17</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Cantidad de dinero:</label>
+                        <input id="dinero_ingresado" type="number" min="0" step="1" required>
+                        <br>
+                        <br>                        
+                    </div>
+                </div>
+                <div>
+                    <button onclick="calcular_cambio()" type="submit" name="action">Calcular Cambio</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="cambio"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			var dinero_ingresado;
+			var cant_bcincuenta = 0, cant_veinte= 0, cant_diez= 0, cant_cinco= 0, cant_dos= 0, cant_mil= 0;
+		    var cant_mcincuenta= 0, cant_mcien= 0, cant_mdoscientos= 0, cant_mquinientos= 0;
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('cambio').style.visibility = 'hidden';
+				document.getElementById('cambio').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('cambio').style.visibility = 'visible';
+				document.getElementById('cambio').style.display = 'block';
+			}
+
+			function mostrar_cambio(cambio_obtenido)
+			{
+				document.getElementById('cambio').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Cambio </th>' +
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + cambio_obtenido + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function limpiarValores()
+			{
+				cant_bcincuenta = 0;
+		    	cant_veinte= 0;
+		    	cant_diez= 0;
+		    	cant_cinco= 0;
+		    	cant_dos= 0;
+		    	cant_mil= 0;
+		    	cant_mcincuenta= 0;
+		    	cant_mcien= 0;
+		    	cant_mdoscientos= 0;
+		    	cant_mquinientos= 0;
+			}
+
+		    function calcular_cambio()
+		    {
+		    	limpiarValores();
+
+		    	dinero_ingresado = document.getElementById('dinero_ingresado').value;
+
+		    	if(dinero_ingresado && dinero_ingresado > 0)
+		    	{
+		    		while(dinero_ingresado >= 50000)
+		    			agregar_bcincuenta();
+
+		    		while(dinero_ingresado >= 20000)
+		    			agregar_veinte();
+
+		    		while(dinero_ingresado >= 10000)
+		    			agregar_diez();
+
+		    		while(dinero_ingresado >= 5000)
+		    			agregar_cinco();
+
+		    		while(dinero_ingresado >= 2000)
+		    			agregar_dos();
+
+		    		while(dinero_ingresado >= 1000)
+		    			agregar_mil();
+
+		    		while(dinero_ingresado >= 500)
+		    			agregar_quinientos();	
+
+		    		while(dinero_ingresado >= 200)
+		    			agregar_doscientos();
+
+		    		while(dinero_ingresado >= 100)
+		    			agregar_cien();
+
+		    		while(dinero_ingresado >= 50)
+		    			agregar_mcincuenta();
+
+		    		var cambio_obtenido = 'Billetes de 50 = ' + cant_bcincuenta + '<br/>Billetes de 20 = ' + cant_veinte + '<br/>Billetes de 10 = ' + cant_diez + '<br/>Billetes de 5 = ' + cant_cinco + '<br/>Billetes de 2 = ' + cant_dos + '<br/>Billetes de 1 = ' + cant_mil + '<br/>Monedas de 50 = ' + cant_mcincuenta + '<br/>Monedas de 100 = ' + cant_mcien + '<br/>Monedas de 200 = ' + cant_mdoscientos + '<br/>Monedas de 500 = ' + cant_mquinientos;	
+
+		    		mostrar_cambio(cambio_obtenido);
+		    		mostrar_resultado();		
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		    function agregar_bcincuenta()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 50000;
+		    	cant_bcincuenta++;
+		    }
+
+		    function agregar_veinte()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 20000;
+		    	cant_veinte++;
+		    }
+
+		    function agregar_diez()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 10000;
+		    	cant_diez++;
+		    }
+
+		    function agregar_cinco()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 5000;
+		    	cant_cinco++;
+		    }
+
+		    function agregar_dos()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 2000;
+		    	cant_dos++;
+		    }
+
+		    function agregar_mil()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 1000;
+		    	cant_mil++;
+		    }
+
+		    function agregar_quinientos()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 500;
+		    	cant_mquinientos++;
+		    }
+
+		    function agregar_doscientos()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 200;
+		    	cant_mdoscientos++;
+		    }
+
+		    function agregar_cien()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 100;
+		    	cant_mcien++;
+		    }
+
+		    function agregar_mcincuenta()
+		    {
+		    	dinero_ingresado  = dinero_ingresado - 50;
+		    	cant_mcincuenta++;
+		    }
+
+		</script>
+	</body>
+</html>

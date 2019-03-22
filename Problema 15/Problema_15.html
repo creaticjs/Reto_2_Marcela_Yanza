@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 15</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 15</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Ingrese el mes:</label>
+                        <input id="mes_ingresado" type="number" min="1" step="1" required>
+                        <br>
+                        <br> 
+                        <label>Ingrese el año:</label>
+                        <input id="anio_ingresado" type="number" min="1" step="1" required>
+                        <br>
+                        <br>                         
+                    </div>
+                </div>
+                <div>
+                    <button onclick="calcular_dias()" type="submit" name="action">Calcular Días</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="dias"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('dias').style.visibility = 'hidden';
+				document.getElementById('dias').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('dias').style.visibility = 'visible';
+				document.getElementById('dias').style.display = 'block';
+			}
+
+			function mostrar_dias(cantidad_dias)
+			{
+				document.getElementById('dias').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Cantidad de días del mes </th>' +
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + cantidad_dias + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+		    function calcular_dias()
+		    {
+		    	var mes_ingresado = document.getElementById('mes_ingresado').value;
+		    	var anio_ingresado = document.getElementById('anio_ingresado').value;
+
+		    	if(mes_ingresado && mes_ingresado > 0 && anio_ingresado && anio_ingresado > 0)
+		    	{
+		    		if(mes_ingresado < 1 ||  mes_ingresado > 12)
+			    	{
+			    		document.getElementById('dias').innerHTML = '<p>El mes debe ser un número entre 1 y 12.</p>';
+			    	}
+			    	else
+			    	{
+			    		var cantidad_dias = new Date(anio_ingresado, mes_ingresado, 0).getDate();
+			    		mostrar_dias(cantidad_dias);
+			    	}
+			    	mostrar_resultado();		    		
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		</script>
+	</body>
+</html>

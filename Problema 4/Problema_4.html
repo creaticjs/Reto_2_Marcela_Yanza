@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cuarto Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Cuarto Problema</h1>
+			
+			<form onsubmit="return calcular_hipotenusa()">
+                <div>
+                    <div>
+                    	<label>Longitud del primer lado: </label>
+                        <input id="lado1" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>
+                    </div>
+                    <div>
+                    	<label>Longitud del segundo lado: </label>
+                        <input id="lado2" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>                       
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_hipotenusa()" type="submit" name="action">Calcular Hipotenusa</button>
+                    <br>
+                    <br>
+                </div>
+                <div id="hipotenusa">
+                	<table>
+                		<thead>
+		                    <tr>
+		                        <th>Hipotenusa del Triángulo</th>
+		                    </tr>
+		                </thead>
+	                	<tbody>
+		                    <tr>
+		                        <td id="hipotenusa_obtenida"></td>
+		                    </tr>
+		                </tbody>
+            		</table>               
+                    <br>
+                </div>
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('hipotenusa').style.visibility = 'hidden';
+				document.getElementById('hipotenusa').style.display = 'none';
+			}
+
+			function calcular_hipotenusa() 
+			{
+			    var lado1 = document.getElementById('lado1').value;
+			    var lado2 = document.getElementById('lado2').value;
+
+			    if(lado1 && lado2)
+			    {
+			    	if(lado1 > -1 && lado2 > -1)
+			    	{
+			    		var lado1_cuad = Math.pow(lado1, 2);
+			    		var lado2_cuad = Math.pow(lado2, 2);
+			    		var hipotenusa = Math.sqrt(lado1_cuad + lado2_cuad);
+
+					    document.getElementById('hipotenusa_obtenida').innerHTML = 'h = ' + hipotenusa;
+				        document.getElementById('hipotenusa').style.visibility = 'visible';
+				        document.getElementById('hipotenusa').style.display = 'block';
+				        return false;	
+			    	}
+			    	else
+			    	{
+			    		ocultar_resultado();
+			    	}
+			    }
+			    else
+		    	{
+		    		ocultar_resultado();
+		    	}
+			}
+		</script>
+	</body>
+</html>

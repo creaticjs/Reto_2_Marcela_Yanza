@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 8</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 8</h1>
+			
+			<form onsubmit="return obtener_numero()">
+                <div>
+                    <div>
+                    	<label>Ingrese un número de tres digitos en palabras y al final de éste un punto (Ejemplo: doscientos veinticinco.): </label>
+                        <input id="numero_ingresado" type="text" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="obtener_numero()" type="submit" name="action">Obtener Número</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="numero"></div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('numero').style.visibility = 'hidden';
+				document.getElementById('numero').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('numero').style.visibility = 'visible';
+				document.getElementById('numero').style.display = 'block';
+			}
+
+			function mostrar_numero(numero_obtenido)
+			{
+				document.getElementById('numero').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th>Número resultante</th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + numero_obtenido + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function calcular_numero(numero_ingresado) 
+			{
+				var centenas = ["cien", "ciento", "doscientos", "trescientos", "cuatroscientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"];
+
+				var primeras_decenas = ["diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"];
+
+				var segundas_decenas = ["once", "doce", "trece", "catorce", "quince"];
+
+				var terceras_decenas = ["dieci", "veinti"];
+
+				var unidades = ["uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"];
+
+				var obtenido = '';
+
+				var numero = numero_ingresado.substring(0, numero_ingresado.length - 1);
+
+				var split = numero.split(' ');
+
+				if(split.length == 1)
+				{
+					if(centenas.includes(split[0]) && split[0] != centenas[1])
+					{
+						var posicion = centenas.indexOf(split[0]);
+						if(posicion == 0) posicion = posicion + 1;
+						obtenido = posicion + '00';
+					}
+					else
+					{
+						obtenido = 'Numero inválido';
+					}					
+				}
+				else
+				{
+					if(split.length == 2)
+					{
+						if(centenas.includes(split[0]) && split[0] != centenas[0])
+						{
+							if(unidades.includes(split[1]))
+							{
+								var cent = String(centenas.indexOf(split[0]));
+								var decen = '0';
+								var unid = String( unidades.indexOf(split[1]) + 1);
+								obtenido = cent + decen + unid;
+							}
+							else
+							{
+								if(primeras_decenas.includes(split[1]))
+								{
+									var cent = String(centenas.indexOf(split[0]));
+									var decen = String(primeras_decenas.indexOf(split[1]) + 1);
+									var unid = '0';
+									obtenido = cent + decen + unid;
+								}
+								else
+								{
+									if(segundas_decenas.includes(split[1]))
+									{
+										var cent = String(centenas.indexOf(split[0]));
+										var decen = '1';
+										var unid = String(segundas_decenas.indexOf(split[1]) + 1);
+										obtenido = cent + decen + unid;
+									}
+									else
+									{
+										if(terceras_decenas.includes(split[1].substring(0,5)) || terceras_decenas.includes(split[1].substring(0,6)))
+										{
+											var cent = String(centenas.indexOf(split[0]));
+											
+											if(terceras_decenas.indexOf(split[1].substring(0,5)) == 0)
+												var decen = 1
+											else
+												var decen = 2;
+
+											if(decen == 1)
+												var unids = split[1].substring(5, split[1].length);
+											else
+												var unids = split[1].substring(6, split[1].length);
+
+											if(unidades.includes(unids))
+											{
+												var unid = String(unidades.indexOf(unids) + 1);
+												obtenido = cent + decen + unid;
+											}
+											else
+												obtenido = "Valor inválido";
+										}
+										else
+											obtenido = "Valor inválido";
+									}
+								}
+							}
+						}
+						else
+						{
+							obtenido = 'Numero inválido'; 
+						}
+					}
+					else
+					{
+						if(split.length == 4)
+						{
+							if(centenas.indexOf(split[0]) != 0 && primeras_decenas.includes(split[1]) && split[1] != primeras_decenas[0] && split[1] != primeras_decenas[1])
+							{
+								if(split[2] == 'y' && unidades.includes(split[3]))
+								{
+									var cent = String(centenas.indexOf(split[0]));
+									var decen = String(primeras_decenas.indexOf(split[1]) + 1);
+									var unid = String(unidades.indexOf(split[3]) + 1);
+									obtenido = cent + decen + unid;
+								}
+								else
+									obtenido = 'Numero inválido';
+							}
+							else
+								obtenido = 'Numero inválido';
+						}
+						else
+							obtenido = 'Numero inválido';
+					}
+				}
+				return obtenido;
+    		}
+
+			function cadenaValida(numero_ingresado)
+			{
+				var ultimo_caracter = numero_ingresado.substring(numero_ingresado.length - 1);
+				if(ultimo_caracter == '.')
+					return true;
+				return false;
+			}
+
+			function obtener_numero() 
+			{
+			    var numero_ingresado = document.getElementById('numero_ingresado').value;			    
+
+			    if(numero_ingresado)
+			    {
+			    	if(cadenaValida(numero_ingresado))
+			    	{
+			    		var numero_minusculas = numero_ingresado.toLowerCase();
+			    		var numero_obtenido = calcular_numero(numero_minusculas);
+			    		console.log('numero_obtenido =' + numero_obtenido);
+			    		mostrar_numero(numero_obtenido);
+			    		mostrar_resultado();
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('numero').innerHTML = '<p>El número debe terminar con un punto.</p>';
+			    		mostrar_resultado();
+			    	}		    	
+			    	return false;
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		</script>
+	</body>
+</html>

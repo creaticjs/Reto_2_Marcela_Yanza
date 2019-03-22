@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Quinto Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Quinto Problema</h1>
+			
+			<form onsubmit="return calcular_area()">
+                <div>
+                    <div>
+                    	<label>Longitud del primer lado: </label>
+                        <input id="lado1" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>
+                    </div>
+                    <div>
+                    	<label>Longitud del segundo lado: </label>
+                        <input id="lado2" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>                       
+                    </div>
+                     <div>
+                    	<label>Longitud del tercer lado: </label>
+                        <input id="lado3" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>                       
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_area()" type="submit" name="action">Calcular área</button>
+                    <br>
+                    <br>
+                </div>
+                <div id="area">
+                	<table>
+                		<thead>
+		                    <tr>
+		                        <th>Área del Triángulo</th>
+		                    </tr>
+		                </thead>
+	                	<tbody>
+		                    <tr>
+		                        <td id="area_obtenida"></td>
+		                    </tr>
+		                </tbody>
+            		</table>               
+                    <br>
+                </div>
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('area').style.visibility = 'hidden';
+				document.getElementById('area').style.display = 'none';
+			}
+
+			function calcular_area() 
+			{
+			    var lado1 = document.getElementById('lado1').value;
+			    var lado2 = document.getElementById('lado2').value;
+			    var lado3 = document.getElementById('lado3').value;
+
+			    if(lado1 && lado2 && lado3)
+			    {
+			    	if(lado1 > -1 && lado2 > -1 && lado3 > -1)
+			    	{
+			    		var p = (parseFloat(lado1)+parseFloat(lado2)+parseFloat(lado3))/2;
+			    		var area = Math.sqrt(p*(p - lado1)*(p - lado2)*(p - lado3));
+
+					    document.getElementById('area_obtenida').innerHTML = 'A = ' + area;
+				        document.getElementById('area').style.visibility = 'visible';
+				        document.getElementById('area').style.display = 'block';
+				        return false;	
+			    	}
+			    	else
+			    	{
+			    		ocultar_resultado();
+			    	}
+			    }
+			    else
+		    	{
+		    		ocultar_resultado();
+		    	}
+			}
+		</script>
+	</body>
+</html>

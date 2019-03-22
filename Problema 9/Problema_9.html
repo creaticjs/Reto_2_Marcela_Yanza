@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 9</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 9</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Ingrese el radio del círculo: </label>
+                        <input id="radio_ingresado" type="number" min="0" step="0,1" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_circ()" type="submit" name="action">Calcular Circunferencia</button>
+                    <button onclick="calcular_area()" type="submit" name="action">Calcular Área</button>
+                    <button onclick="calcular_diametro()" type="submit" name="action">Calcular Diametro</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="medida"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('medida').style.visibility = 'hidden';
+				document.getElementById('medida').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('medida').style.visibility = 'visible';
+				document.getElementById('medida').style.display = 'block';
+			}
+
+			function mostrar_medida(nombre_medida, medida_obtenida)
+			{
+				document.getElementById('medida').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th>' + nombre_medida + '</th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + medida_obtenida + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function calcular_circ() 
+			{
+			    var radio_ingresado = document.getElementById('radio_ingresado').value;			    
+
+			    if(radio_ingresado)
+			    {
+			    	if(radio_ingresado > 0)
+			    	{
+			    		var circunferencia = 2*radio_ingresado*(Math.PI);
+			    		var cir = 'C = '+circunferencia;
+			    		mostrar_medida('Circunferencia Resultante', cir);
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('medida').innerHTML = '<p>Ingrese una valor positivo.</p>';   	
+			    	}
+			    	mostrar_resultado();
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		    function calcular_area()
+		    {
+		    	var radio_ingresado = document.getElementById('radio_ingresado').value;			    
+
+			    if(radio_ingresado)
+			    {
+			    	if(radio_ingresado > 0)
+			    	{
+			    		var area = (Math.PI)*Math.pow(radio_ingresado, 2);
+			    		var ar = 'A = '+area;
+			    		mostrar_medida('Área Resultante', ar);
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('medida').innerHTML = '<p>Ingrese una valor positivo.</p>';   	
+			    	}
+			    	mostrar_resultado();
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		    function calcular_diametro()
+		    {
+		    	var radio_ingresado = document.getElementById('radio_ingresado').value;			    
+
+			    if(radio_ingresado)
+			    {
+			    	if(radio_ingresado > 0)
+			    	{
+			    		var diametro = 2*radio_ingresado;
+			    		var dia = 'D = '+diametro;
+			    		mostrar_medida('Diametro Resultante', dia);
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('medida').innerHTML = '<p>Ingrese una valor positivo.</p>';   	
+			    	}
+			    	mostrar_resultado();
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		</script>
+	</body>
+</html>

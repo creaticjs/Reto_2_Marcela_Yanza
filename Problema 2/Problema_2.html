@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Segundo Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Segundo Problema</h1>
+			
+			<form onsubmit="return calcular_fuerza()">
+                <div>
+                    <div>
+                    	<label>Ingresa la Masa 1 en gramos: </label>
+                        <input id="masa1" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>
+                    </div>
+                    <div>
+                    	<label>Ingrese la Masa 2 en gramos: </label>
+                        <input id="masa2" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>                       
+                    </div>
+                    <div>
+                    	<label>Ingrese la distancia en cm: </label>
+                        <input id="distancia" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>            
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_fuerza()" type="submit" name="action">Calcular Fuerza</button>
+                    <br>
+                    <br>
+                </div>
+                <div id="fuerza">
+                	<table>
+                		<thead>
+		                    <tr>
+		                        <th>Fuerza resultante</th>
+		                    </tr>
+		                </thead>
+	                	<tbody>
+		                    <tr>
+		                        <td id="fuerza_obtenida"></td>
+		                    </tr>
+		                </tbody>
+            		</table>               
+                    <br>
+                </div>
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('fuerza').style.visibility = 'hidden';
+				document.getElementById('fuerza').style.display = 'none';
+			}
+
+			function calcular_fuerza() 
+			{
+				aux = Math.pow(10, -8);
+				var gravedad = 6.673*aux;
+			    var masa1 = document.getElementById('masa1').value;
+			    var masa2 = document.getElementById('masa2').value;
+			    var distancia = document.getElementById('distancia').value;
+
+			    if(masa1 && masa2 && distancia)
+			    {
+			    	if(masa1 > -1 && masa2 > -1 && distancia > -1)
+			    	{
+			    		dist_cuad = Math.pow(distancia, 2);
+			    		var fuerza = (gravedad*masa1*masa2)/dist_cuad;
+
+					    document.getElementById('fuerza_obtenida').innerHTML = 'Fuerza = ' + fuerza 
+					    + ' g×cm/seg²';
+				        document.getElementById('fuerza').style.visibility = 'visible';
+				        document.getElementById('fuerza').style.display = 'block';
+				        return false;	
+			    	}
+			    	else
+			    	{
+			    		ocultar_resultado();
+			    	}
+			    }
+			    else
+		    	{
+		    		ocultar_resultado();
+		    	}
+			}
+		</script>
+	</body>
+</html>

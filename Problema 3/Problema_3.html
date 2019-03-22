@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tercer Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Tercer Problema</h1>
+			
+			<form onsubmit="return calcular_energia()">
+                <div>
+                    <div>
+                    	<label>Ingresa la masa en gramos: </label>
+                        <input id="masa" type="number" min="0" step="0.1" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_energia()" type="submit" name="action">Calcular Energia</button>
+                    <br>
+                    <br>
+                </div>
+                <div id="energia">
+                	<table>
+                		<thead>
+		                    <tr>
+		                        <th>Energia resultante</th>
+		                    </tr>
+		                </thead>
+	                	<tbody>
+		                    <tr>
+		                        <td id="energia_obtenida"></td>
+		                    </tr>
+		                </tbody>
+            		</table>               
+                    <br>
+                </div>
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('energia').style.visibility = 'hidden';
+				document.getElementById('energia').style.display = 'none';
+			}
+
+			function calcular_energia() 
+			{
+				aux = Math.pow(10, 10);
+				var velocidad = 2.997925*aux;
+			    var masa = document.getElementById('masa').value;
+
+			    if(masa)
+			    {
+			    	if(masa > -1)
+			    	{
+			    		masa_pot = Math.pow(masa, 3);
+			    		var energia = velocidad*masa_pot;
+
+					    document.getElementById('energia_obtenida').innerHTML = 'E = ' + energia 
+					    + ' m*g^3/seg';
+				        document.getElementById('energia').style.visibility = 'visible';
+				        document.getElementById('energia').style.display = 'block';
+				        return false;	
+			    	}
+			    	else
+			    	{
+			    		ocultar_resultado();
+			    	}
+			    }
+			    else
+		    	{
+		    		ocultar_resultado();
+		    	}
+			}
+		</script>
+	</body>
+</html>

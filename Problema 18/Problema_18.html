@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 18</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 18</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Número:</label>
+                        <input id="numero_ingresado" type="number" required>
+                        <br>
+                        <br>                        
+                    </div>
+                </div>
+                <div>
+                    <button onclick="verificar_numero()" type="submit" name="action">Verificar Número</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="verificacion"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			var dinero_ingresado;
+			var cant_bcincuenta = 0, cant_veinte= 0, cant_diez= 0, cant_cinco= 0, cant_dos= 0, cant_mil= 0;
+		    var cant_mcincuenta= 0, cant_mcien= 0, cant_mdoscientos= 0, cant_mquinientos= 0;
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('verificacion').style.visibility = 'hidden';
+				document.getElementById('verificacion').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('verificacion').style.visibility = 'visible';
+				document.getElementById('verificacion').style.display = 'block';
+			}
+
+			function mostrar_verificacion(verificacion_obtenida)
+			{
+				document.getElementById('verificacion').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Verificación </th>' +
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + verificacion_obtenida + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+		    function verificar_numero()
+		    {
+		    	numero_ingresado = document.getElementById('numero_ingresado').value;
+
+		    	if(numero_ingresado)
+		    	{
+		    		if(numero_ingresado < 0)
+		    			mostrar_verificacion('El número es negativo');
+		    		else if(numero_ingresado > 0)
+		    			mostrar_verificacion('El número es positivo');
+		    		else
+		    			mostrar_verificacion('El número es igual a 0');
+		    		
+		    		mostrar_resultado();		
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		</script>
+	</body>
+</html>

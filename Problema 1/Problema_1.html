@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Primer Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Primer Problema</h1>
+			
+			<form onsubmit="return calcular_promedio()">
+                <div>
+                    <div>
+                    	<label>Primera nota</label>
+                        <input id="nota_uno" type="number" min="0" max="100" step="0.1" required>
+                        <br>
+                        <br>
+                    </div>
+                    <div>
+                    	<label>Segunda nota</label>
+                        <input id="nota_dos" type="number" min="0" max="100" step="0.1" required>
+                        <br>
+                        <br>                       
+                    </div>
+                    <div>
+                    	<label>Tercera nota</label>
+                        <input id="nota_tres" type="number" min="0" max="100" step="0.1" required>
+                        <br>
+                        <br>            
+                    </div>
+                    <div>
+                    	<label>Cuarta nota</label>
+                        <input id="nota_cuatro" type="number" min="0" max="100" step="0.1" required>
+                        <br>
+                        <br>                      
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_promedio()" type="submit" name="action">Calcular Promedio</button>
+                    <br>
+                    <br>
+                </div>
+                <div id="promedio">
+                	<table>
+                		<thead>
+		                    <tr>
+		                        <th>Media obtenida</th>
+		                        <th>Puntuación obtenida</th>
+		                    </tr>
+		                </thead>
+	                	<tbody>
+		                    <tr>
+		                        <td id="media_obtenida"></td>
+		                        <td id="puntuacion_obtenida"></td>
+		                    </tr>
+		                </tbody>
+            		</table>               
+                    <br>
+                </div>
+            </form>
+
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Media</th>
+                        <th>Puntuacion</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>90 - 100</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>80 - 89</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>70 - 79</td>
+                        <td>C</td>
+                    </tr>
+                    <tr>
+                        <td>60 - 69</td>
+                        <td>D</td>
+                    </tr>
+                    <tr>
+                        <td>0 - 59</td>
+                        <td>E</td>
+                    </tr>
+                </tbody>
+            </table>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('promedio').style.visibility = 'hidden';
+				document.getElementById('promedio').style.display = 'none';
+			}
+
+			function get_puntuacion(promedio)
+			{
+				switch (true) 
+				{
+					case (promedio < 101 && promedio > 89):
+			            return "A";
+		            case (promedio < 90 && promedio > 79):
+		           		return "B";
+	           		case (promedio < 80 && promedio > 69):
+			            return "C";
+			        case (promedio < 70 && promedio > 59):
+			            return "D";
+			        case (promedio < 60 && promedio > 0):
+			            return "E";
+			    }
+			}
+
+			function calcular_promedio() 
+			{
+			    var nota_uno = document.getElementById('nota_uno').value;
+			    var nota_dos = document.getElementById('nota_dos').value;
+			    var nota_tres = document.getElementById('nota_tres').value;
+			    var nota_cuatro = document.getElementById('nota_cuatro').value;
+
+			    if(nota_uno && nota_dos && nota_tres && nota_cuatro)
+			    {
+			    	if(nota_uno > -1 && nota_uno < 101 && nota_dos > -1 && nota_dos < 101 && nota_tres > -1 && nota_tres < 101 && nota_cuatro > -1 && nota_cuatro < 101)
+			    	{
+			    		var promedio = (parseFloat(nota_uno) + parseFloat(nota_dos) + parseFloat(nota_tres) + parseFloat(nota_cuatro)) / 4;
+
+				    	var puntuacion = get_puntuacion(promedio);
+
+					    console.log("rpomedio = "+promedio);
+
+					    document.getElementById('media_obtenida').innerHTML = promedio;
+					    document.getElementById('puntuacion_obtenida').innerHTML = puntuacion;
+				        document.getElementById('promedio').style.visibility = 'visible';
+				        document.getElementById('promedio').style.display = 'block';
+				        return false;	
+			    	}
+			    	else
+			    	{
+			    		ocultar_resultado();
+			    	}
+			    }
+			    else
+		    	{
+		    		ocultar_resultado();
+		    	}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 12</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 12</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<input type="file" id="archivo_ingresado" onchange="leerArchivo(event)" required/>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                
+                <div id="edad"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			var fecha1, fecha2;
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('edad').style.visibility = 'hidden';
+				document.getElementById('edad').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('edad').style.visibility = 'visible';
+				document.getElementById('edad').style.display = 'block';
+			}
+
+			function mostrar_edad(fecha_nacimiento, edad)
+			{
+				document.getElementById('edad').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Fecha Nacimiento </th>' + 
+								'<th> Edad </th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + fecha_nacimiento + '</td>' +
+								'<td>' + edad + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function leerArchivo(evt) 
+			{
+			    //Retorna el solo el primer archivo de la lista de objetos
+			    var file = evt.target.files[0]; 
+
+			    if (file) 
+			    {
+			    	var r = new FileReader();
+			    	r.onload = function(e) 
+			    	{ 
+				    	var contenido_original = e.target.result;
+				    	obtener_edad(contenido_original);
+			      	}
+			      	r.readAsText(file);
+			    } 
+			    else 
+			    { 
+			      alert("Failed to load file");
+			    }
+			}
+
+			function fechasValidas(contenido_original)
+			{
+				if(!contenido_original)
+					return "Por favor seleccione un archivo que contenga dos fechas de la siguiente forma: 08/09/1995,19/03/2019";
+				else
+				{
+					if(contenido_original.length != 21)
+						return "El archivo debe contener dos fechas de la siguiente forma: 08/09/1995,19/03/2019";
+					else
+					{
+						var split = contenido_original.split(',');
+
+						var fecha1_split = split[0].split('/');
+						fecha1 = fecha1_split[1] + '/' + fecha1_split[0] + '/' + fecha1_split[2];
+						fecha1 = new Date(fecha1);
+
+						var fecha2_split = split[1].split('/');
+						fecha2 = fecha2_split[1] + '/' + fecha2_split[0] + '/' + fecha2_split[2];
+						fecha2 = new Date(fecha2);
+
+						if(fecha1 != 'Invalid Date' && fecha2 != 'Invalid Date')
+							return '';
+						else
+							return "El archivo debe contener dos fechas de la siguiente forma: 08/09/1995,19/03/2019";
+					}
+				} 
+			}
+
+			function obtener_edad(contenido_original) 
+			{   
+				var res = fechasValidas(contenido_original);
+			    if(res == "")
+			    {
+					var anios = new Date(fecha2 - fecha1).getFullYear() - 1970;
+					
+					var d = fecha1.getDate();
+					var m = fecha1.getMonth() + 1;
+					var a = fecha1.getFullYear();
+					var fecha_aux = d + '/' + m + '/' + a;
+
+					if(anios > 0)
+					{
+						anios = anios + ' año(s)';
+						mostrar_edad(fecha_aux, anios);						
+					}
+					else
+					{
+						var dif = new Date(fecha2 - fecha1);
+						var meses = dif.getMonth();
+						var dias = dif.getDate()-1;
+						var edad = meses + ' mes(es) ' + dias + ' día(s)';
+
+						mostrar_edad(fecha_aux, edad);
+					}
+					mostrar_resultado();
+	    		}
+	    		else
+	    			document.getElementById('edad').innerHTML = '<p>' + res + '</p>';
+	    		mostrar_resultado(); 
+		    }
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 13</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 13</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                	<div>
+                    	<label>x = (ce - bf)/(ae - bd)</label>
+                        <br>
+                        <label>y = (af -cd)/(ae - bd)</label>
+                        <br>
+                        <br>
+                    </div>
+                    <div>
+                    	<label>A:</label>
+                        <input id="a_ingresado" type="number" required>
+                        <br>
+                        <br>
+                        <label>B:</label>
+                        <input id="b_ingresado" type="number" required>
+                        <br>
+                        <br>
+                        <label>C:</label>
+                        <input id="c_ingresado" type="number" required>
+                        <br>
+                        <br>
+                        <label>D:</label>
+                        <input id="d_ingresado" type="number" required>
+                        <br>
+                        <br>
+                        <label>E:</label>
+                        <input id="e_ingresado" type="number" required>
+                        <br>
+                        <br>
+                        <label>F:</label>
+                        <input id="f_ingresado" type="number" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_valores()" type="submit" name="action">Calcular Valores de X e Y</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="valores"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('valores').style.visibility = 'hidden';
+				document.getElementById('valores').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('valores').style.visibility = 'visible';
+				document.getElementById('valores').style.display = 'block';
+			}
+
+			function mostrar_valores(valores)
+			{
+				document.getElementById('valores').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> X </th>' + 
+								'<th> Y </th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + valores[0] + '</td>' + 
+								'<td>' + valores[1] + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+		    function calcular_valores()
+		    {
+		    	var a = document.getElementById('a_ingresado').value;
+		    	var b = document.getElementById('b_ingresado').value;
+		    	var c = document.getElementById('c_ingresado').value;
+		    	var d = document.getElementById('d_ingresado').value;
+		    	var e = document.getElementById('e_ingresado').value;
+		    	var f = document.getElementById('f_ingresado').value;
+
+		    	if(a != '' && b != '' && c != '' && d != '' && e != '')
+		    	{
+		    		var denominador = a*e - b*d;
+
+			    	if(denominador != 0)
+			    	{
+			    		var valores = [];
+			    		var numerador_x = c*e - b*f;
+			    		var numerador_y = a*f - c*d;
+
+			    		var x = numerador_x/denominador;
+			    		var y = numerador_y/denominador;
+			    		valores.push(x);
+			    		valores.push(y);
+			    		mostrar_valores(valores);
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('valores').innerHTML = '<p>No fue posible encontrar los valores dado que el denominador es igual a 0.</p>';
+			    	}
+			    	mostrar_resultado();	 
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		</script>
+	</body>
+</html>

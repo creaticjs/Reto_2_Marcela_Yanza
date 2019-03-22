@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 11</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 11</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<input type="file" id="archivo_ingresado" onchange="leerArchivo(event)" required/>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                
+                <div id="numero"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('numero').style.visibility = 'hidden';
+				document.getElementById('numero').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('numero').style.visibility = 'visible';
+				document.getElementById('numero').style.display = 'block';
+			}
+
+			function mostrar_numero(numero_original, numero_obtenido)
+			{
+				document.getElementById('numero').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Número Leído </th>' + 
+								'<th> Número Obtenido </th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + numero_original + '</td>' +
+								'<td>' + numero_obtenido + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function leerArchivo(evt) 
+			{
+			    //Retorna el solo el primer archivo de la lista de objetos
+			    var file = evt.target.files[0]; 
+
+			    if (file) 
+			    {
+			    	var r = new FileReader();
+			    	r.onload = function(e) 
+			    	{ 
+				    	var contenido_original = e.target.result;
+				    	obtener_numero(contenido_original);
+			      	}
+			      	r.readAsText(file);
+			    } 
+			    else 
+			    { 
+			      alert("Failed to load file");
+			    }
+			}
+
+			function numeroValido(contenido_original)
+			{
+				if(!contenido_original)
+					return "Por favor seleccione un archivo que contenga un número entero positivo de 4 cifras de la siguiente forma: 2,3,6,2";
+				else
+				{
+					if(contenido_original.length != 7)
+						return "El archivo debe contener un número entero positivo de 4 cifras de la siguiente forma: 2,3,6,2";
+					else
+					{
+						var split = contenido_original.split(',');
+						if(split.length == 4 && split[0] > 0 && split[0] < 10 && split[1] >= 0 && split[1] < 10 && split[2] >= 0 && split[2] < 10 && split[3] >=0 && split[3] < 10)
+							return ""
+						else
+							return "El archivos debe contener un número entero positivo de 4 cifras de la siguiente forma: 2,3,6,2";
+					}
+				} 
+			}
+
+			function obtener_numero(contenido_original) 
+			{   
+				var res = numeroValido(contenido_original);
+			    if(res == "")
+			    {
+		    		var split = contenido_original.split(',');
+		    		var numero_original = split[0] + split[1] + split[2] + split[3];
+		    		var num = parseInt(split[0] + split[1]);
+
+		    		if(split[2] >= 5)
+		    		{
+		    			num = num + 1;
+		    			var numero_obtenido = num + '00';
+		    		}
+		    		else
+		    		{
+		    			var numero_obtenido = num + '00';
+		    		}
+		    		mostrar_numero(numero_original, numero_obtenido);
+	    		}
+	    		else
+	    			document.getElementById('numero').innerHTML = '<p>' + res + '</p>';
+	    		mostrar_resultado(); 
+		    }
+
+		</script>
+	</body>
+</html>

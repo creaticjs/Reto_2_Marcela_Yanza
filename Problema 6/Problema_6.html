@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sexto Problema</title>
+	</head>
+
+	<body>
+		<center>
+
+		<h1>Sexto Problema</h1>
+			
+			<form onsubmit="return calcular_hora()">
+                <div>
+                    <div>
+                    	<label>Ingrese la hora del día en notación de 24 H en cinco caracteres (Ejemplo 13:45): </label>
+                        <input id="hora_24" type="text" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="calcular_hora()" type="submit" name="action">Calcular hora</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="hora"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('hora').style.visibility = 'hidden';
+				document.getElementById('hora').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('hora').style.visibility = 'visible';
+				document.getElementById('hora').style.display = 'block';
+			}
+
+			function get_hora_12(hora_24)
+			{
+				var split = hora_24.split(':');
+
+				if(split[0] < 12)
+					return'Hora en formato 12 H = ' + hora_24 + ' am.';				
+				else
+				{
+					if(split[0] == 12)
+						return 'Hora en formato 12 H = 12:' + split[1] + ' pm.';
+					else
+					{
+						var aux_hora = parseInt(split[0]) - 12;
+						return 'Hora en formato 12 H = ' + aux_hora + ':' + split[1] + ' pm.';
+					}
+				}
+			}
+
+			function mostrar_hora(hora_obtenida)
+			{
+				document.getElementById('hora').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th>Hora obtenida</th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td id="hora_obtenida">' + hora_obtenida + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function horaValida(hora_24)
+			{
+				if(hora_24 && hora_24.length == 5)
+			    {
+		    		var split = hora_24.split('');
+		    		
+		    		if(split[2] == ':')
+		    		{
+		    			var split = hora_24.split(':');
+
+		    			if(split[0] > -1 && split[0] < 25 && split[0] > -1 && split[1] < 60)
+		    				return true;
+		    			else
+		    				return false;
+		    		}
+		    		else
+		    			return false;
+		    	}
+		    	else
+		    		return false;
+			}
+
+			function calcular_hora() 
+			{
+			    var hora_24 = document.getElementById('hora_24').value;			    
+
+			    if(hora_24)
+			    {
+			    	if(horaValida(hora_24))
+			    	{
+			    		mostrar_hora(get_hora_12(hora_24));   			
+			        	mostrar_resultado();
+		    			return false;
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('hora').innerHTML = '<p>Ingrese un formato de hora válido</p>';
+			    		mostrar_resultado();
+			    		return false;
+			    	}
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		</script>
+	</body>
+</html>

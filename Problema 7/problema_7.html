@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 7</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 7</h1>
+			
+			<form onsubmit="return obtener_numeros()">
+                <div>
+                    <div>
+                    	<label>Ingrese una fecha en el formato "15, Febrero 1989": </label>
+                        <input id="fecha_ingresada" type="text" required>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div>
+                	<br>
+                    <button onclick="obtener_numeros()" type="submit" name="action">Obtener Números</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="fecha"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('fecha').style.visibility = 'hidden';
+				document.getElementById('fecha').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('fecha').style.visibility = 'visible';
+				document.getElementById('fecha').style.display = 'block';
+			}
+
+			function mostrar_cadena(cadena_obtenida)
+			{
+				document.getElementById('fecha').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th>Cadena resultante</th>' + 
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + cadena_obtenida + '</td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+			function fechaValida(fecha_ingresada)
+			{
+				var fecha = new Date(fecha_ingresada);
+				if(fecha == "Invalid Date")
+					return '';
+				else
+					return fecha;
+			}
+
+			function obtener_numeros() 
+			{
+			    var fecha_ingresada = document.getElementById('fecha_ingresada').value;			    
+
+			    if(fecha_ingresada)
+			    {
+			    	var fecha = fechaValida(fecha_ingresada);
+			    	if(fecha != '')
+			    	{
+			    		var mes = fecha.getMonth() + 1;
+			    		var cadena = fecha.getDate() + ' ' + mes + ' ' + fecha.getFullYear();
+			    		mostrar_cadena(cadena);			
+			        	mostrar_resultado();
+		    			return false;
+			    	}
+			    	else
+			    	{
+			    		document.getElementById('fecha').innerHTML = '<p>Ingrese una fecha válida</p>';
+			    		mostrar_resultado();
+			    		return false;
+			    	}
+	    		}
+	    		else
+	    			ocultar_resultado();
+		    }
+
+		</script>
+	</body>
+</html>

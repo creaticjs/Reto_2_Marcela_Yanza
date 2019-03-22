@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Problema 16</title>
+	</head>
+
+	<body>
+		<center>
+
+			<h1>Problema 16</h1>
+			
+			<form onsubmit="return false">
+                <div>
+                    <div>
+                    	<label>Horas trabajadas:</label>
+                        <input id="horas_ingresadas" type="number" min="0" step="1" required>
+                        <br>
+                        <br> 
+                        <label>Tasa por hora:</label>
+                        <input id="tasa_ingresada" type="number" min="0" step="0,1" required>
+                        <br>
+                        <br>                         
+                    </div>
+                </div>
+                <div>
+                    <button onclick="calcular_salario()" type="submit" name="action">Calcular Salario</button>
+                    <br>
+                    <br>
+                </div>
+                
+                <div id="salario"> </div>
+
+            </form>
+
+		</center>
+
+		<script type="text/javascript">
+
+			ocultar_resultado();
+
+			function ocultar_resultado()
+			{
+				document.getElementById('salario').style.visibility = 'hidden';
+				document.getElementById('salario').style.display = 'none';
+			}
+
+			function mostrar_resultado()
+			{
+				document.getElementById('salario').style.visibility = 'visible';
+				document.getElementById('salario').style.display = 'block';
+			}
+
+			function mostrar_salario(salario_obtenido)
+			{
+				document.getElementById('salario').innerHTML = 
+				'<div class="alert alert-primary" role="alert">' + 
+					'<table>' + 
+						'<thead>' + 
+							'<tr>' + 
+								'<th> Salario </th>' +
+							'</tr>' + 
+						'</thead>' + 
+						'<tbody>' + 
+							'<tr>' + 
+								'<td>' + salario_obtenido + ' pesetas </td>' + 
+							'</tr>' + 
+						'</tbody>' + 
+					'</table>' + 
+				'</div>';
+			}
+
+		    function calcular_salario()
+		    {
+		    	var horas_ingresadas = document.getElementById('horas_ingresadas').value;
+		    	var tasa_ingresada = document.getElementById('tasa_ingresada').value;
+
+		    	if(horas_ingresadas && horas_ingresadas > 0 && tasa_ingresada && tasa_ingresada > 0)
+		    	{
+		    		var salario, salario_obtenido;
+		    		if(horas_ingresadas < 38)
+		    		{
+		    			salario = horas_ingresadas*tasa_ingresada;
+		    		}
+		    		else
+		    		{
+		    			horas_ex = horas_ingresadas - 37;
+		    			salario = (horas_ingresadas - horas_ex)*tasa_ingresada + horas_ex*tasa_ingresada*1.5;	
+		    		}
+
+		    		if(salario <= 50000)
+		    			salario_obtenido = salario;
+		    		else
+		    			salario_obtenido = salario*0.9;
+		    		mostrar_salario(salario_obtenido);
+			    	mostrar_resultado();		    		
+		    	}
+		    	else
+		    		ocultar_resultado();	    			
+		    }
+
+		</script>
+	</body>
+</html>
